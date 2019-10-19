@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://augmentedtabletop.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">479332156660</string>
+  <string name="google_storage_bucket" translatable="false">augmentedtabletop.appspot.com</string>
+  <string name="project_id" translatable="false">augmentedtabletop</string>
+  <string name="google_api_key" translatable="false">AIzaSyBLZIwPOCcYAdYBIi5AAlw4N0i0aKmNlR8</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBLZIwPOCcYAdYBIi5AAlw4N0i0aKmNlR8</string>
+  <string name="google_app_id" translatable="false">1:479332156660:android:ed3da8d97b902b30b9caa1</string>
+  <string name="default_web_client_id" translatable="false">479332156660-b5b24bs2gf5hpk2h3ut5dv49lc1dhnmh.apps.googleusercontent.com</string>
+</resources>
