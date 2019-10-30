@@ -60,6 +60,7 @@ public class Table : MonoBehaviour
 
 					TableUtility.ShowAndroidToastMessage("Welcome to the Table!");
 
+					Scene.SetActive(true);
 					Scene.GetComponent<SceneHandler>()
 					.Initialize(snapshot.Child("array"), result.Anchor.transform.position);
 					Scene.transform.parent = t;
