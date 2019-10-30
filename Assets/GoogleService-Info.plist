@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>479332156660-rm91ooj62tt3pi5dtoacocfkhl3miqb6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.479332156660-rm91ooj62tt3pi5dtoacocfkhl3miqb6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDB4ge4jhIJ63PMs5VD9n7tvN_BAwH5TvQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>479332156660</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.untoten.augmentedtabletop</string>
+	<key>PROJECT_ID</key>
+	<string>augmentedtabletop</string>
+	<key>STORAGE_BUCKET</key>
+	<string>augmentedtabletop.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:479332156660:ios:336234a79f7a5595b9caa1</string>
+	<key>DATABASE_URL</key>
+	<string>https://augmentedtabletop.firebaseio.com</string>
+</dict>
+</plist>

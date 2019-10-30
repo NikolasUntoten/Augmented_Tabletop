@@ -21,7 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBLZIwPOCcYAdYBIi5AAlw4N0i0aKmNlR8"
+          "current_key": "AIzaSyDvI51leDYsa_Ry83j7uvE4ZaGiFCev5lY"
         }
       ],
       "services": {
@@ -30,6 +30,49 @@
             {
               "client_id": "479332156660-b5b24bs2gf5hpk2h3ut5dv49lc1dhnmh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "479332156660-rm91ooj62tt3pi5dtoacocfkhl3miqb6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.untoten.augmentedtabletop"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479332156660:android:0fd90990fd5a9ec3b9caa1",
+        "android_client_info": {
+          "package_name": "com.untoten.augmentedtabletop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479332156660-b5b24bs2gf5hpk2h3ut5dv49lc1dhnmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvI51leDYsa_Ry83j7uvE4ZaGiFCev5lY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479332156660-b5b24bs2gf5hpk2h3ut5dv49lc1dhnmh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "479332156660-rm91ooj62tt3pi5dtoacocfkhl3miqb6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.untoten.augmentedtabletop"
+              }
             }
           ]
         }
