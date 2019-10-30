@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 947796967}
   - component: {fileID: 947796966}
   - component: {fileID: 947796968}
+  - component: {fileID: 947796969}
   m_Layer: 0
   m_Name: HelloAR Controller
   m_TagString: Untagged
@@ -277,13 +278,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba50a251af6e394382eb263c236aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tablePrefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b,
+    type: 3}
+--- !u!114 &947796969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947796965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01d4eadc879a4644994f39ee798c83f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_worldTouched:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 947796968}
+        m_MethodName: MakeTable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   FirstPersonCamera: {fileID: 1179834909}
-  GameObjectVerticalPlanePrefab: {fileID: 100000, guid: f84456e53845d45738b1156787e9a29a,
-    type: 3}
-  GameObjectHorizontalPlanePrefab: {fileID: 100000, guid: f84456e53845d45738b1156787e9a29a,
-    type: 3}
-  GameObjectPointPrefab: {fileID: 100000, guid: f84456e53845d45738b1156787e9a29a,
-    type: 3}
 --- !u!1001 &1179834908
 PrefabInstance:
   m_ObjectHideFlags: 0
