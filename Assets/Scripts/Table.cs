@@ -31,44 +31,25 @@ public class Table : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		FirebaseDatabase database = FirebaseDatabase.DefaultInstance;
-		DatabaseReference row = database.GetReference(tableNumber.ToString());
-		row.GetValueAsync().ContinueWith(task => {
-			if (task.IsFaulted)
-			{
-				Debug.Log("Failed, " + task.Exception.ToString());
-			} else if (task.IsCompleted)
-			{
-				DataSnapshot snapshot = task.Result;
-				Debug.Log(snapshot.Value.ToString());
-				cloudID = (string)snapshot.Child("cloudID").Value;
 
-				XPSession.ResolveCloudAnchor(cloudID).ThenAction(result => {
-					if (result.Response != CloudServiceResponse.Success)
-					{
-						TableUtility.ShowAndroidToastMessage("Sorry, no table by that ID.");
-						return;
-					}
+		FirebaseHandler.GetTableData(tableNumber, (entry) => {
+			FirebaseHandler.GetCloudAnchor(entry.cloudID, (result => {
 
+				Transform t = result.Anchor.transform;
 
-					Transform t = result.Anchor.transform;
+				Pose worldPose = _WorldToAnchorPose(new Pose(t.position,
+												 t.rotation), t);
+				t.SetPositionAndRotation(worldPose.position, worldPose.rotation);
 
+				TableUtility.ShowAndroidToastMessage("Welcome to the Table!");
 
-					Pose worldPose = _WorldToAnchorPose(new Pose(t.position,
-													 t.rotation), t);
-					t.SetPositionAndRotation(worldPose.position, worldPose.rotation);
-
-					TableUtility.ShowAndroidToastMessage("Welcome to the Table!");
-
-					Scene.SetActive(true);
-					Scene.GetComponent<SceneHandler>()
-					.Initialize(snapshot.Child("array"), result.Anchor.transform.position);
-					Scene.transform.parent = t;
-					Scene.GetComponent<SceneHandler>().SetChangedTrue();
-					Scene.transform.localPosition = new Vector3(0, 0, 0);
-
-				});
-			}
+				Scene.SetActive(true);
+				Scene.GetComponent<SceneHandler>()
+				.Initialize(entry, result.Anchor.transform.position);
+				Scene.transform.parent = t;
+				Scene.GetComponent<SceneHandler>().SetChangedTrue();
+				Scene.transform.localPosition = new Vector3(0, 0, 0);
+			}));
 		});
 	}
 

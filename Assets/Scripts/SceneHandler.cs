@@ -27,23 +27,19 @@ public class SceneHandler : MonoBehaviour
 
 	private Vector3 _position;
 
-	public void Initialize(DataSnapshot data, Vector3 position)
+	public void Initialize(FirebaseHandler.TableEntry table, Vector3 position)
 	{
 		_position = position;
 		_RemoveAllModels();
 		elements = new List<Element>();
 		_changed = false;
 		//gameObject.transform.position = _position;
-		foreach (DataSnapshot child in data.Children)
+		foreach (FirebaseHandler.TableElement el in table.array)
 		{
 			Element e = new Element();
-			e.position.x = (float) double.Parse(child.Child("position").Child("0").Value.ToString());
-			e.position.y = (float)double.Parse(child.Child("position").Child("1").Value.ToString());
-			e.position.z = (float)double.Parse(child.Child("position").Child("2").Value.ToString());
-			e.rotation.x = (float)double.Parse(child.Child("rotation").Child("0").Value.ToString());
-			e.rotation.y = (float)double.Parse(child.Child("rotation").Child("1").Value.ToString());
-			e.rotation.z = (float)double.Parse(child.Child("rotation").Child("2").Value.ToString());
-			e.data = (string)child.Child("data").Value;
+			e.data = el.type;
+			e.position = el.position;
+			e.rotation = el.rotation;
 			_AttachModel(e);
 			elements.Add(e);
 		}
@@ -139,7 +135,6 @@ public class SceneHandler : MonoBehaviour
 		_changed = false;
 		_RefreshModels();
 		FirebaseDatabase.DefaultInstance.GetReference(Table.tableNumber.ToString())
-			.Child("array")
 			.ValueChanged += HandleChange;
 		_saved = false;
     }
@@ -155,7 +150,8 @@ public class SceneHandler : MonoBehaviour
 		{
 			return;
 		}
-		Initialize(args.Snapshot, _position);
+		Initialize(FirebaseHandler.MarshallTableData(args.Snapshot, Table.tableNumber),
+			_position);
 	}
 
     // Update is called once per frame

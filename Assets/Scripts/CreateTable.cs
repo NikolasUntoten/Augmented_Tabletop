@@ -46,19 +46,8 @@ public class CreateTable : MonoBehaviour
 	private void _DoUploadAndMoveOn(Anchor anchor)
 	{
 		TableUtility.ShowAndroidToastMessage(
-			"Saving anchor " + anchor.ToString());
-		XPSession.CreateCloudAnchor(anchor).ThenAction(result => {
-			if (result.Response != CloudServiceResponse.Success)
-			{
-				Debug.Log(string.Format("Failed to host Cloud Anchor: {0}",
-					result.Response));
-				TableUtility.ShowAndroidToastMessage(
-					string.Format("Failed to host Cloud Anchor: {0}",
-						result.Response));
-				return;
-			}
-			_AfterAnchorMade(result);
-		});
+			"Creating cloud anchor: " + anchor.ToString());
+		FirebaseHandler.CreateCloudAnchor(anchor, _AfterAnchorMade);
 	}
 
 	// Uploads Anchor Data, then loads join scene.
@@ -71,9 +60,7 @@ public class CreateTable : MonoBehaviour
 			result.Anchor.CloudId));
 
 		string cloudID = result.Anchor.CloudId;
-		FirebaseDatabase database = FirebaseDatabase.DefaultInstance;
 		int tablenum = Random.Range(100000, 999999);
-		DatabaseReference row = database.GetReference(tablenum.ToString());
 		string json = "{\"cloudID\":\"" + cloudID + "\""
 			+ ",\"array\":["
 			+ "{\"data\":\"floor\",\"position\":[0,0,0],\"rotation\":[0,90,0]},"
@@ -105,20 +92,9 @@ public class CreateTable : MonoBehaviour
 			+ "]}";
 
 		TableUtility.ShowAndroidToastMessage("saving cloud data");
-		row.SetRawJsonValueAsync(json).ContinueWith(task => {
-			if (task.IsFaulted)
-			{
-				TableUtility.ShowAndroidToastMessage("Failed, "
-					+ task.Exception.ToString());
-			} else if (task.IsCompleted)
-			{
-				// Table was uploaded. Move to the join scene.
-				Table.tableNumber = tablenum;
-				SceneManager.LoadScene("Table");
-			} else
-			{
-				TableUtility.ShowAndroidToastMessage("?, " + task.Status);
-			}
+		FirebaseHandler.SetTableData(json, tablenum, () => {
+			Table.tableNumber = tablenum;
+			SceneManager.LoadScene("Table");
 		});
 	}
 }
