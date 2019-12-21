@@ -7,6 +7,8 @@ using UnityEngine;
 public class SceneHandler : MonoBehaviour
 {
 
+	public static float SCALE = 0.1f;
+
 	public GameObject WallPrefab;
 
 	public GameObject FloorPrefab;
@@ -23,7 +25,7 @@ public class SceneHandler : MonoBehaviour
 
 	private bool _changed;
 
-	private static bool _saved;
+	private bool _saved;
 
 	private Vector3 _position;
 
@@ -73,7 +75,7 @@ public class SceneHandler : MonoBehaviour
 		row.SetRawJsonValueAsync(json).ContinueWith(task => {
 			if (task.IsFaulted)
 			{
-				//_ShowAndroidToastMessage("Save failed! " + task.Exception);
+				_ShowAndroidToastMessage("Save failed! " + task.Exception);
 			} else
 			{
 				//_ShowAndroidToastMessage("Save Success");
@@ -125,12 +127,18 @@ public class SceneHandler : MonoBehaviour
 	public void RemoveElement(Element e)
 	{
 		_changed = true;
+		if (e.model != null)
+		{
+			Destroy(e.model);
+			e.model = null;
+		}
 		elements.Remove(e);
 	}
 
     // Start is called before the first frame update
     void Start()
     {
+		_RemoveAllModels();
 		elements = new List<Element>();
 		_changed = false;
 		_RefreshModels();
@@ -150,6 +158,7 @@ public class SceneHandler : MonoBehaviour
 		{
 			return;
 		}
+		//_ShowAndroidToastMessage("External update; reinitializing");
 		Initialize(FirebaseHandler.MarshallTableData(args.Snapshot, Table.tableNumber),
 			_position);
 	}
@@ -183,10 +192,11 @@ public class SceneHandler : MonoBehaviour
 					e.model = null;
 				}
 			}
+		} else
+		{
+			_ShowAndroidToastMessage("huh");
 		}
 	}
-
-	public static float SCALE = 0.1f;
 
 	private void _AddAllModels()
 	{

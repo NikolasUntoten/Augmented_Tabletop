@@ -21,11 +21,8 @@ public class Table : MonoBehaviour
 	public void SelectObject()
 	{
 		GameObject obj = ARCoreController.UnityRaycast();
-		if (obj != null)
-		{
-			TableController.GetComponent<TableController>()
+		TableController.GetComponent<TableController>()
 					.Click(obj);
-		}
 	}
 
 	// Start is called before the first frame update

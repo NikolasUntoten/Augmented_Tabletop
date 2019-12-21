@@ -25,6 +25,14 @@ public class TableController : MonoBehaviour
 		mode = "select";
 	}
 
+	void Update()
+	{
+		if (Selected == null)
+		{
+			highlighter.SetActive(false);
+		}
+	}
+
     public void ToggleMenu()
 	{
 		Menu.SetActive(!Menu.activeSelf);
@@ -47,11 +55,17 @@ public class TableController : MonoBehaviour
 
 	public void Click(GameObject obj)
 	{
+		if (obj == null)
+		{
+			Selected = null;
+			highlighter.SetActive(false);
+			return;
+		}
 		if (mode.Equals("select"))
 		{
 			Selected = obj;
 			highlighter.SetActive(true);
-			highlighter.transform.position = Selected.transform.position;
+			updateHighlighter();
 		} else
 		{
 			Element e = Scene.GetElement(obj);
@@ -59,6 +73,15 @@ public class TableController : MonoBehaviour
 				e.rotation, mode);
 			Scene.SetChangedTrue();
 			highlighter.SetActive(false);
+		}
+	}
+
+	private void updateHighlighter()
+	{
+		if (highlighter != null && Selected != null)
+		{
+			highlighter.transform.position = Selected.transform.position;
+			highlighter.transform.rotation = Selected.transform.rotation;
 		}
 	}
 
@@ -71,6 +94,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.left;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
@@ -83,6 +107,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.right;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
@@ -95,6 +120,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.forward;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
@@ -107,6 +133,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.back;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
@@ -119,6 +146,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.up;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
@@ -131,6 +159,7 @@ public class TableController : MonoBehaviour
 			Element e = Scene.GetElement(Selected);
 			e.position = e.position + Vector3.down;
 			Scene.SetChangedTrue();
+			updateHighlighter();
 		}
 	}
 
