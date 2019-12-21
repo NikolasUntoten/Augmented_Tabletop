@@ -29,7 +29,7 @@ public class SceneHandler : MonoBehaviour
 
 	public void Initialize(FirebaseHandler.TableEntry table, Vector3 position)
 	{
-		_position = position;
+		_position.Set(position.x, position.y, position.z);
 		_RemoveAllModels();
 		elements = new List<Element>();
 		_changed = false;
@@ -173,12 +173,15 @@ public class SceneHandler : MonoBehaviour
 
 	private void _RemoveAllModels()
 	{
-		foreach (Element e in elements)
+		if (elements != null)
 		{
-			if (e.model != null)
+			foreach (Element e in elements)
 			{
-				Destroy(e.model);
-				e.model = null;
+				if (e.model != null)
+				{
+					Destroy(e.model);
+					e.model = null;
+				}
 			}
 		}
 	}

@@ -12,6 +12,8 @@ public class TableController : MonoBehaviour
 
 	public SceneHandler Scene;
 
+	public GameObject highlighter;
+
 	private  GameObject Selected;
 
 	private string mode;
@@ -48,12 +50,15 @@ public class TableController : MonoBehaviour
 		if (mode.Equals("select"))
 		{
 			Selected = obj;
+			highlighter.SetActive(true);
+			highlighter.transform.position = Selected.transform.position;
 		} else
 		{
 			Element e = Scene.GetElement(obj);
 			Scene.AddElement(e.position + Vector3.forward * SceneHandler.SCALE,
 				e.rotation, mode);
 			Scene.SetChangedTrue();
+			highlighter.SetActive(false);
 		}
 	}
 
