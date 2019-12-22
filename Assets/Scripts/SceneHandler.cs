@@ -194,7 +194,7 @@ public class SceneHandler : MonoBehaviour
 			}
 		} else
 		{
-			_ShowAndroidToastMessage("huh");
+			//_ShowAndroidToastMessage("huh");
 		}
 	}
 

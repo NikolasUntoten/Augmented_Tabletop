@@ -39,7 +39,7 @@
 		/// The first-person camera being used to render the passthrough camera image (i.e. AR
 		/// background).
 		/// </summary>
-		public Camera FirstPersonCamera;
+		public static Camera FirstPersonCamera;
 
 		/// <summary>
 		/// True if the app is in the process of quitting due to an ARCore connection error,
@@ -73,12 +73,18 @@
 			throw new System.Exception("No ARCore object detected.");
 		}
 
-		public static GameObject UnityRaycast()
+		public delegate void PrintCallback(string s);
+
+		public static GameObject UnityRaycast(PrintCallback print)
 		{
 			Touch touch = Input.GetTouch(0);
 			// Raycast against the location the player touched to search for planes.
 			RaycastHit hit;
-			if (Physics.Raycast(Frame.Pose.position, Frame.Pose.forward, out hit, 100.0f))
+			Ray ray = Camera.main.ScreenPointToRay(
+				new Vector3(touch.position.x, touch.position.y, 0));
+			//print(ray.direction.ToString());
+			if (Physics.Raycast(Frame.Pose.position, ray.direction,
+								out hit, 100.0f))
 			{
 				//_ShowAndroidToastMessage("HIT! " + hit.collider.gameObject.ToString());
 				return hit.collider.gameObject.transform.parent.gameObject;

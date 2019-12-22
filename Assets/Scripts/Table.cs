@@ -20,7 +20,7 @@ public class Table : MonoBehaviour
 
 	public void SelectObject()
 	{
-		GameObject obj = ARCoreController.UnityRaycast();
+		GameObject obj = ARCoreController.UnityRaycast(_ShowAndroidToastMessage);
 		TableController.GetComponent<TableController>()
 					.Click(obj);
 	}
@@ -61,5 +61,23 @@ public class Table : MonoBehaviour
 			anchorTWorld.GetColumn(2), anchorTWorld.GetColumn(1));
 
 		return new Pose(position, rotation);
+	}
+
+	private void _ShowAndroidToastMessage(string message)
+	{
+		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+		AndroidJavaObject unityActivity =
+			unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+		if (unityActivity != null)
+		{
+			AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
+			unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() => {
+				AndroidJavaObject toastObject =
+					toastClass.CallStatic<AndroidJavaObject>(
+						"makeText", unityActivity, message, 0);
+				toastObject.Call("show");
+			}));
+		}
 	}
 }
