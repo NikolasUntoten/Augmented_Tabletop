@@ -212,7 +212,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  FirstPersonCamera: {fileID: 1697461763}
 --- !u!1 &98520212
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,7 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53daac9574d29d54289a8c6fa2dc3430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallPrefab: {fileID: 8133438060588074223, guid: 4869fd71fc8ce344783c6e0f341b58f1,
+  WallPrefab: {fileID: 977364301791597580, guid: 95228bc3e9e0b6947aba2de94547913e,
     type: 3}
   FloorPrefab: {fileID: 2573983206155015248, guid: 841fa4db89fd35c499b3e59a1dfff433,
     type: 3}
@@ -1841,16 +1840,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 591754875}
     m_Modifications:
-    - target: {fileID: 2101965111265083045, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
-        type: 3}
-      propertyPath: m_Name
-      value: Highlighter
-      objectReference: {fileID: 0}
-    - target: {fileID: 2101965111265083045, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2101965111265083041, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1920,6 +1909,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2101965111265083045, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
+        type: 3}
+      propertyPath: m_Name
+      value: Highlighter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2101965111265083045, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101965111265083055, guid: 5ac6244152eb95e4b80d30eee8c85c4c,
         type: 3}
