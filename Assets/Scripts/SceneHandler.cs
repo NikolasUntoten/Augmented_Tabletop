@@ -3,16 +3,25 @@ using GoogleARCore;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SceneHandler : MonoBehaviour
 {
 
 	public static float SCALE = 0.1f;
 
-	public GameObject WallPrefab;
+	[Serializable]
+	public struct NamedPrefab
+	{
+		public string name;
+		public GameObject obj;
+	}
 
-	public GameObject FloorPrefab;
+	public NamedPrefab[] Prefabs;
 
+	private Dictionary<string, GameObject> prefabDict;
+
+	public GameObject ErrorPrefab;
 
 	public class Element
 	{
@@ -28,6 +37,15 @@ public class SceneHandler : MonoBehaviour
 	private bool _saved;
 
 	private Vector3 _position;
+
+	public void Awake()
+	{
+		prefabDict = new Dictionary<string, GameObject>();
+		foreach (NamedPrefab p in Prefabs)
+		{
+			prefabDict.Add(p.name, p.obj);
+		}
+	}
 
 	public void Initialize(FirebaseHandler.TableEntry table, Vector3 position)
 	{
@@ -66,12 +84,18 @@ public class SceneHandler : MonoBehaviour
 				json += ",";
 			}
 		}
+		json += "}";
+
 		_saved = true;
 
-		json += "}";
 		FirebaseDatabase database = FirebaseDatabase.DefaultInstance;
 		DatabaseReference row = database.GetReference(
 			Table.tableNumber.ToString()).Child("array");
+		if (row == null)
+		{
+			_saved = false;
+			return;
+		}
 		row.SetRawJsonValueAsync(json).ContinueWith(task => {
 			if (task.IsFaulted)
 			{
@@ -114,6 +138,13 @@ public class SceneHandler : MonoBehaviour
 			if (e.model == obj)
 			{
 				return e;
+			}
+			foreach (Transform child in e.model.transform)
+			{
+				if (child == obj)
+				{
+					return e;
+				}
 			}
 		}
 		return null;
@@ -207,7 +238,7 @@ public class SceneHandler : MonoBehaviour
 
 	private void _AttachModel(Element e)
 	{
-		e.model = Object.Instantiate(_GetModel(e.data));
+		e.model = UnityEngine.Object.Instantiate(_GetModel(e.data));
 		e.model.transform.parent = gameObject.transform;
 		e.model.transform.localScale = Vector3.one * SCALE;
 		e.model.transform.localPosition = e.position * SCALE;
@@ -216,14 +247,12 @@ public class SceneHandler : MonoBehaviour
 
 	private GameObject _GetModel(string data)
 	{
-		switch (data)
+		if (prefabDict.ContainsKey(data))
 		{
-			case "wall":
-				return WallPrefab;
-			case "floor":
-				return FloorPrefab;
-			default:
-				return FloorPrefab;
+			return prefabDict[data];
+		} else
+		{
+			return ErrorPrefab;
 		}
 	}
 

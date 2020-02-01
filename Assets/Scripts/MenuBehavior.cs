@@ -16,6 +16,10 @@ public class MenuBehavior : MonoBehaviour
 		string input = inputField
 			.GetComponentInChildren<UnityEngine.UI.Text>()
 			.text;
+		if (input == null)
+		{
+			return;
+		}
 		if (input.Length == TABLE_NUM_LEN)
 		{
 			Table.tableNumber = int.Parse(input);

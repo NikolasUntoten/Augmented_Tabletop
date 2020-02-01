@@ -90,9 +90,23 @@ public class CreateTable : MonoBehaviour
 			+ "{\"data\":\"wall\",\"position\":[4,1,1],\"rotation\":[0,180,0]},"
 			+ "{\"data\":\"wall\",\"position\":[4,1,2],\"rotation\":[0,180,0]}"
 			+ "]}";
+		string jsonFloor = "{\"cloudID\":\"" + cloudID + "\", \"array\":[";
+		int width = 5;
+		for (int x = -width; x < width; x++)
+		{
+			for (int z = -width; z < width; z++)
+			{
+				jsonFloor += "{\"data\":\"stone_brick_floor\",\"position\":[" + x + ",-1," + z + "],\"rotation\":[0,90,0]}";
+				if (z != width - 1 || x != width - 1)
+				{
+					jsonFloor += ",";
+				}
+			}
+		}
+		jsonFloor += "]}";
 
 		TableUtility.ShowAndroidToastMessage("saving cloud data");
-		FirebaseHandler.SetTableData(json, tablenum, () => {
+		FirebaseHandler.SetTableData(jsonFloor, tablenum, () => {
 			Table.tableNumber = tablenum;
 			SceneManager.LoadScene("Table");
 		});

@@ -63,35 +63,45 @@ public class FirebaseHandler : MonoBehaviour
 			{
 				DataSnapshot snapshot = task.Result;
 				TableEntry table = MarshallTableData(snapshot, tableNum);
-				callback(table);
+				if (table != null)
+				{
+					callback(table);
+				}
 			}
 		});
 	}
 
 	public static TableEntry MarshallTableData(DataSnapshot snapshot, int tableNum)
 	{
-		TableEntry table = new TableEntry();
-		table.num = tableNum;
-		table.cloudID = (string)snapshot.Child("cloudID").Value;
-		DataSnapshot arr = snapshot.Child("array");
-		long arrLen = arr.ChildrenCount;
-		table.array = new TableElement[arrLen];
-		for (int i = 0; i < arrLen; i++)
+		try
 		{
-			DataSnapshot el = arr.Child(string.Format("{0}", i));
-			TableElement e = new TableElement();
-			e.type = (string)el.Child("data").Value;
-			e.position = new Vector3();
-			e.rotation = new Vector3();
-			e.position.x = (float)double.Parse(el.Child("position").Child("0").Value.ToString());
-			e.position.y = (float)double.Parse(el.Child("position").Child("1").Value.ToString());
-			e.position.z = (float)double.Parse(el.Child("position").Child("2").Value.ToString());
-			e.rotation.x = (float)double.Parse(el.Child("rotation").Child("0").Value.ToString());
-			e.rotation.y = (float)double.Parse(el.Child("rotation").Child("1").Value.ToString());
-			e.rotation.z = (float)double.Parse(el.Child("rotation").Child("2").Value.ToString());
-			table.array[i] = e;
+			TableEntry table = new TableEntry();
+			table.num = tableNum;
+			table.cloudID = (string)snapshot.Child("cloudID").Value;
+			DataSnapshot arr = snapshot.Child("array");
+			long arrLen = arr.ChildrenCount;
+			table.array = new TableElement[arrLen];
+			for (int i = 0; i < arrLen; i++)
+			{
+				DataSnapshot el = arr.Child(string.Format("{0}", i));
+				TableElement e = new TableElement();
+				e.type = (string)el.Child("data").Value;
+				e.position = new Vector3();
+				e.rotation = new Vector3();
+				e.position.x = (float)double.Parse(el.Child("position").Child("0").Value.ToString());
+				e.position.y = (float)double.Parse(el.Child("position").Child("1").Value.ToString());
+				e.position.z = (float)double.Parse(el.Child("position").Child("2").Value.ToString());
+				e.rotation.x = (float)double.Parse(el.Child("rotation").Child("0").Value.ToString());
+				e.rotation.y = (float)double.Parse(el.Child("rotation").Child("1").Value.ToString());
+				e.rotation.z = (float)double.Parse(el.Child("rotation").Child("2").Value.ToString());
+				table.array[i] = e;
+			}
+			return table;
+		} catch (System.InvalidCastException e)
+		{
+			Debug.Log("Failed to marshall table data!");
+			return null;
 		}
-		return table;
 	}
 
 	public static string MarshallTableObject(TableEntry entry)

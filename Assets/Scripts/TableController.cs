@@ -20,8 +20,14 @@ public class TableController : MonoBehaviour
 
 	void Start()
 	{
-		NumberText.GetComponent<UnityEngine.UI.Text>()
-			.text += Table.tableNumber.ToString();
+		if (NumberText != null)
+		{
+			UnityEngine.UI.Text t = NumberText.GetComponent<UnityEngine.UI.Text>();
+			if (t != null)
+			{
+				t.text += Table.tableNumber.ToString();
+			}
+		}
 		mode = "select";
 	}
 
@@ -35,7 +41,10 @@ public class TableController : MonoBehaviour
 
     public void ToggleMenu()
 	{
-		Menu.SetActive(!Menu.activeSelf);
+		if (Menu != null)
+		{
+			Menu.SetActive(!Menu.activeSelf);
+		}
 	}
 
 	public void SaveScene()
@@ -57,22 +66,40 @@ public class TableController : MonoBehaviour
 	{
 		if (obj == null)
 		{
+			//TableUtility.ShowAndroidToastMessage("Clicked on Null! try again.");
 			Selected = null;
-			highlighter.SetActive(false);
+			if (highlighter != null)
+			{
+				highlighter.SetActive(false);
+			}
 			return;
 		}
 		if (mode.Equals("select"))
 		{
 			Selected = obj;
-			highlighter.SetActive(true);
+			//TableUtility.ShowAndroidToastMessage("Selected Object: " + obj);
+			if (highlighter != null)
+			{
+				highlighter.SetActive(true);
+			}
 			updateHighlighter();
 		} else
 		{
+			// Update this!!!
 			Element e = Scene.GetElement(obj);
-			Scene.AddElement(e.position + Vector3.forward * SceneHandler.SCALE,
+			if (e == null)
+			{
+				Debug.Log("Failed to get selected element from scene.");
+				TableUtility.ShowAndroidToastMessage("Failed to get selected object from scene: " + obj);
+				return;
+			}
+			Scene.AddElement(e.position + Vector3.forward,
 				e.rotation, mode);
 			Scene.SetChangedTrue();
-			highlighter.SetActive(false);
+			if (highlighter != null)
+			{
+				highlighter.SetActive(false);
+			}
 		}
 	}
 

@@ -994,9 +994,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53daac9574d29d54289a8c6fa2dc3430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallPrefab: {fileID: 977364301791597580, guid: 95228bc3e9e0b6947aba2de94547913e,
-    type: 3}
-  FloorPrefab: {fileID: 2573983206155015248, guid: 841fa4db89fd35c499b3e59a1dfff433,
+  Prefabs:
+  - name: stone_brick_wall
+    obj: {fileID: 977364301791597580, guid: 95228bc3e9e0b6947aba2de94547913e, type: 3}
+  - name: stone_brick_floor
+    obj: {fileID: 7789095408841554617, guid: bf4c101b13f7dc340aef1c62131beca1, type: 3}
+  - name: wooden_stairs
+    obj: {fileID: 1936180410472528969, guid: 099e4951c2a711242bd15584c53a8dca, type: 3}
+  ErrorPrefab: {fileID: 3138400736609020067, guid: c8d9a0507cf8c0e468ca47c331ed5138,
     type: 3}
 --- !u!65 &591754872
 BoxCollider:
@@ -2956,7 +2961,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: floor
+          m_StringArgument: stone_brick_floor
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1777152816
@@ -3085,7 +3090,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: wall
+          m_StringArgument: stone_brick_wall
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1788508236

@@ -28,23 +28,36 @@ public class Table : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
 		FirebaseHandler.GetTableData(tableNumber, (entry) => {
 			FirebaseHandler.GetCloudAnchor(entry.cloudID, (result => {
-
+				if (result.Anchor == null)
+				{
+					_ShowAndroidToastMessage("Cloud Anchor not Viable.");
+					return;
+				}
 				Transform t = result.Anchor.transform;
 
 				Pose worldPose = _WorldToAnchorPose(new Pose(t.position,
 												 t.rotation), t);
+				if (worldPose == null)
+				{
+					_ShowAndroidToastMessage("Error converting cloud anchor to world pose.");
+					return;
+				}
 				t.SetPositionAndRotation(worldPose.position, worldPose.rotation);
 
 				TableUtility.ShowAndroidToastMessage("Welcome to the Table!");
 
+				SceneHandler sceneHandler = Scene.GetComponent<SceneHandler>();
+				if (sceneHandler == null)
+				{
+					_ShowAndroidToastMessage("Scene Handler failed to initialize");
+					return;
+				}
 				Scene.SetActive(true);
-				Scene.GetComponent<SceneHandler>()
-				.Initialize(entry, result.Anchor.transform.position);
+				sceneHandler.Initialize(entry, result.Anchor.transform.position);
 				Scene.transform.parent = t;
-				Scene.GetComponent<SceneHandler>().SetChangedTrue();
+				sceneHandler.SetChangedTrue();
 				Scene.transform.localPosition = new Vector3(0, 0, 0);
 			}));
 		});
