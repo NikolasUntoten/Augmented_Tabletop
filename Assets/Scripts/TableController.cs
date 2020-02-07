@@ -6,29 +6,53 @@ using static SceneHandler;
 
 public class TableController : MonoBehaviour
 {
+	// UI references
+	// - Pause menu references
 	public GameObject Menu;
-
 	public GameObject NumberText;
 
-	public SceneHandler Scene;
+	// - Mode button refs
+	public GameObject SelectButton;
+	private GameObject SelectButtonImageOpen;
+	private GameObject SelectButtonImageClose;
+	public GameObject OptionButton;
+	public GameObject OptionSlider;
 
+	// GameObject references
 	public GameObject highlighter;
 
 	private  GameObject Selected;
 
+	// Application state
+	public SceneHandler Scene;
+
+	// Either 'paused', 'select', 'pick', 'postselect', 'place', or 'postplace'
 	private string mode;
+
+	// Any string that references an existing model.
+	private string type;
+
+	private string prevMode;
 
 	void Start()
 	{
-		if (NumberText != null)
+		if (Menu == null || NumberText == null || SelectButton == null || OptionButton == null || OptionSlider == null
+			|| highlighter == null)
 		{
-			UnityEngine.UI.Text t = NumberText.GetComponent<UnityEngine.UI.Text>();
-			if (t != null)
-			{
-				t.text += Table.tableNumber.ToString();
-			}
+			throw new System.Exception("Developer error, set your references!!");
 		}
+		UnityEngine.UI.Text t = NumberText.GetComponent<UnityEngine.UI.Text>();
+		if (t != null)
+		{
+			t.text += Table.tableNumber.ToString();
+		}
+
+		SelectButtonImageOpen = SelectButton.transform.GetChild(0).gameObject;
+		SelectButtonImageClose = SelectButton.transform.GetChild(1).gameObject;
+		OptionSlider.SetActive(false);
+
 		mode = "select";
+		type = "stone_brick_wall";
 	}
 
 	void Update()
@@ -37,12 +61,49 @@ public class TableController : MonoBehaviour
 		{
 			highlighter.SetActive(false);
 		}
+		if ((mode.Equals("postselect") || mode.Equals("postplace")) && SelectButtonImageOpen.activeSelf)
+		{
+			SelectButtonImageOpen.SetActive(false);
+			SelectButtonImageClose.SetActive(true);
+		}
+		if ((mode.Equals("select") || mode.Equals("pick") || mode.Equals("place")) && !SelectButtonImageOpen.activeSelf)
+		{
+			SelectButtonImageOpen.SetActive(true);
+			SelectButtonImageClose.SetActive(false);
+		}
+		if (!mode.Equals("pick") && OptionSlider.activeSelf)
+		{
+			OptionSlider.SetActive(false);
+		}
+		if (mode.Equals("pick") && !OptionSlider.activeSelf)
+		{
+			OptionSlider.SetActive(true);
+		}
+	}
+
+	public void ToggleOptions()
+	{
+		if (mode.Equals("pick"))
+		{
+			mode = "select";
+		} else
+		{
+			mode = "pick";
+		}
 	}
 
     public void ToggleMenu()
 	{
 		if (Menu != null)
 		{
+			if (!Menu.activeSelf)
+			{
+				prevMode = mode;
+				mode = "paused";
+			} else
+			{
+				mode = prevMode;
+			}
 			Menu.SetActive(!Menu.activeSelf);
 		}
 	}
@@ -68,38 +129,54 @@ public class TableController : MonoBehaviour
 		{
 			//TableUtility.ShowAndroidToastMessage("Clicked on Null! try again.");
 			Selected = null;
+			if (mode.Equals("postselect") || mode.Equals("pick"))
+			{
+				mode = "select";
+			}
+			if (mode.Equals("postplace"))
+			{
+				mode = "place";
+			}
 			if (highlighter != null)
 			{
 				highlighter.SetActive(false);
 			}
 			return;
 		}
-		if (mode.Equals("select"))
+		if (mode.Equals("select") || mode.Equals("postselect"))
 		{
 			Selected = obj;
+			mode = "postselect";
 			//TableUtility.ShowAndroidToastMessage("Selected Object: " + obj);
 			if (highlighter != null)
 			{
 				highlighter.SetActive(true);
 			}
 			updateHighlighter();
-		} else
+		} else if (mode.Equals("place") || mode.Equals("postplace"))
 		{
 			// Update this!!!
 			Element e = Scene.GetElement(obj);
+			mode = "postplace";
 			if (e == null)
 			{
 				Debug.Log("Failed to get selected element from scene.");
 				TableUtility.ShowAndroidToastMessage("Failed to get selected object from scene: " + obj);
 				return;
 			}
-			Scene.AddElement(e.position + Vector3.forward,
+			Element eNew = Scene.AddElement(e.position + Vector3.forward,
 				e.rotation, mode);
+			Selected = eNew.model;
 			Scene.SetChangedTrue();
 			if (highlighter != null)
 			{
 				highlighter.SetActive(false);
 			}
+		} else
+		{
+			// They've done something silly, reset them and try again.
+			mode = "select";
+			Click(obj);
 		}
 	}
 
@@ -110,6 +187,13 @@ public class TableController : MonoBehaviour
 			highlighter.transform.position = Selected.transform.position;
 			highlighter.transform.rotation = Selected.transform.rotation;
 		}
+	}
+
+	public void PickOption(string opt)
+	{
+		OptionSlider.SetActive(false);
+		mode = "place";
+		type = opt;
 	}
 
 	public void Left()
