@@ -7,6 +7,7 @@ using GoogleARCore.Examples.HelloAR;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Table : MonoBehaviour
 {
@@ -16,6 +17,22 @@ public class Table : MonoBehaviour
 
 	public GameObject TableController;
 
+	[Serializable]
+	public struct NamedPrefab
+	{
+		public string name;
+		public GameObject obj;
+		public Sprite icon;
+	}
+
+	public NamedPrefab[] Prefabs;
+
+	public static Dictionary<string, GameObject> prefabDict;
+
+	public static Dictionary<string, Sprite> iconDict;
+
+	public static GameObject ErrorPrefab;
+
 	private string cloudID;
 
 	public void SelectObject()
@@ -23,6 +40,17 @@ public class Table : MonoBehaviour
 		GameObject obj = ARCoreController.UnityRaycast(_ShowAndroidToastMessage);
 		TableController.GetComponent<TableController>()
 					.Click(obj);
+	}
+
+	public void Awake()
+	{
+		prefabDict = new Dictionary<string, GameObject>();
+		iconDict = new Dictionary<string, Sprite>();
+		foreach (NamedPrefab p in Prefabs)
+		{
+			prefabDict.Add(p.name, p.obj);
+			iconDict.Add(p.name, p.icon);
+		}
 	}
 
 	// Start is called before the first frame update

@@ -10,19 +10,6 @@ public class SceneHandler : MonoBehaviour
 
 	public static float SCALE = 0.1f;
 
-	[Serializable]
-	public struct NamedPrefab
-	{
-		public string name;
-		public GameObject obj;
-	}
-
-	public NamedPrefab[] Prefabs;
-
-	private Dictionary<string, GameObject> prefabDict;
-
-	public GameObject ErrorPrefab;
-
 	public class Element
 	{
 		public Vector3 position;
@@ -38,14 +25,6 @@ public class SceneHandler : MonoBehaviour
 
 	private Vector3 _position;
 
-	public void Awake()
-	{
-		prefabDict = new Dictionary<string, GameObject>();
-		foreach (NamedPrefab p in Prefabs)
-		{
-			prefabDict.Add(p.name, p.obj);
-		}
-	}
 
 	public void Initialize(FirebaseHandler.TableEntry table, Vector3 position)
 	{
@@ -247,12 +226,12 @@ public class SceneHandler : MonoBehaviour
 
 	private GameObject _GetModel(string data)
 	{
-		if (prefabDict.ContainsKey(data))
+		if (Table.prefabDict.ContainsKey(data))
 		{
-			return prefabDict[data];
+			return Table.prefabDict[data];
 		} else
 		{
-			return ErrorPrefab;
+			return Table.ErrorPrefab;
 		}
 	}
 

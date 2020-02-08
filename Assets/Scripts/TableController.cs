@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static SceneHandler;
 
 public class TableController : MonoBehaviour
@@ -17,6 +18,7 @@ public class TableController : MonoBehaviour
 	private GameObject SelectButtonImageClose;
 	public GameObject OptionButton;
 	public GameObject OptionSlider;
+	public GameObject Option;
 
 	// GameObject references
 	public GameObject highlighter;
@@ -53,8 +55,38 @@ public class TableController : MonoBehaviour
 
 		mode = "select";
 		type = "stone_brick_wall";
+		OptionButton.transform.GetChild(0).gameObject.GetComponent<Image>()
+						.sprite = Table.iconDict[type];
+
+		GameObject content = OptionSlider.transform.GetChild(0).GetChild(0).gameObject;
+		int offset = -25;
+		foreach (string option in Table.prefabDict.Keys)
+		{
+			// The local option button, for selecting an option
+			GameObject optionButton = UnityEngine.Object.Instantiate(Option);
+			// Position button in container
+			optionButton.transform.SetParent(content.transform, false);
+			RectTransform rect = optionButton.GetComponent<RectTransform>();
+			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, offset);
+			offset -= 50;
+			// Set up the button's icon
+			optionButton.transform.GetChild(0).gameObject.GetComponent<Image>()
+					.sprite = Table.iconDict[option];
+			// Setup button's function
+			Button b = optionButton.GetComponent<Button>();
+			b.onClick.AddListener(() => {
+				type = option;
+				mode = "place";
+				OptionButton.transform.GetChild(0).gameObject.GetComponent<Image>()
+						.sprite = Table.iconDict[option];
+			});
+		}
+		RectTransform contRect = content.GetComponent<RectTransform>();
+		contRect.sizeDelta = new Vector2(contRect.sizeDelta.x, -offset + 25);
 	}
 
+	// Need to define the case where user goes from placing to select, make it explicit.
+	// Basically, as previously noted, I need an indicator of select vs place
 	void Update()
 	{
 		if (Selected == null)
