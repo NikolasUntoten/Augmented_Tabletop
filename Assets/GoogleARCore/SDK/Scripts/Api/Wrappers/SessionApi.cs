@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
 // <copyright file="SessionApi.cs" company="Google">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,19 +49,6 @@ namespace GoogleARCoreInternal
                 m_NativeSession.SessionHandle, "Unity", Application.unityVersion);
         }
 
-        public bool SetConfiguration(ARCoreSessionConfig sessionConfig)
-        {
-            IntPtr configHandle = m_NativeSession.SessionConfigApi.Create();
-            m_NativeSession.SessionConfigApi.UpdateApiConfigWithArCoreSessionConfig(
-                configHandle, sessionConfig);
-
-            bool ret =
-                ExternApi.ArSession_configure(m_NativeSession.SessionHandle, configHandle) == 0;
-            m_NativeSession.SessionConfigApi.Destroy(configHandle);
-
-            return ret;
-        }
-
         public void GetSupportedCameraConfigurationsWithFilter(
             ARCoreCameraConfigFilter cameraConfigFilter,
             IntPtr cameraConfigListHandle, List<IntPtr> supportedCameraConfigHandles,
@@ -86,7 +73,7 @@ namespace GoogleARCoreInternal
                 // Skip camera config that has a different camera facing direction.
                 DeviceCameraDirection configDirection =
                     m_NativeSession.CameraConfigApi.GetFacingDirection(cameraConfigHandle)
-                        .ToDeviceCameraDirection();
+                    .ToDeviceCameraDirection();
                 if (configDirection != cameraFacingDirection)
                 {
                     continue;
@@ -254,6 +241,7 @@ namespace GoogleARCoreInternal
             public static extern int ArSession_acquireNewAnchor(
                 IntPtr sessionHandle, IntPtr poseHandle, ref IntPtr anchorHandle);
 #pragma warning restore 626
+
             [DllImport(ApiConstants.ARCoreNativeApi)]
             public static extern void ArSession_reportEngineType(
                 IntPtr sessionHandle, string engineType, string engineVersion);

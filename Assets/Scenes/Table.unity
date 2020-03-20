@@ -153,6 +153,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scene: {fileID: 591754870}
   TableController: {fileID: 1981570002}
+  Prefabs:
+  - name: stone_brick_wall
+    obj: {fileID: 977364301791597580, guid: 95228bc3e9e0b6947aba2de94547913e, type: 3}
+    icon: {fileID: 21300000, guid: 46b7257c02ed4364b958b84d49277189, type: 3}
+  - name: stone_brick_floor
+    obj: {fileID: 7789095408841554617, guid: bf4c101b13f7dc340aef1c62131beca1, type: 3}
+    icon: {fileID: 21300000, guid: e486bb3acdda0b24dbac16d9d6a15fda, type: 3}
+  - name: wooden_stairs
+    obj: {fileID: 1936180410472528969, guid: 099e4951c2a711242bd15584c53a8dca, type: 3}
+    icon: {fileID: 21300000, guid: 18794a9f5f6dd5f469c10702ab219c1f, type: 3}
 --- !u!114 &75379501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,15 +958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53daac9574d29d54289a8c6fa2dc3430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefabs:
-  - name: stone_brick_wall
-    obj: {fileID: 977364301791597580, guid: 95228bc3e9e0b6947aba2de94547913e, type: 3}
-  - name: stone_brick_floor
-    obj: {fileID: 7789095408841554617, guid: bf4c101b13f7dc340aef1c62131beca1, type: 3}
-  - name: wooden_stairs
-    obj: {fileID: 1936180410472528969, guid: 099e4951c2a711242bd15584c53a8dca, type: 3}
-  ErrorPrefab: {fileID: 3138400736609020067, guid: c8d9a0507cf8c0e468ca47c331ed5138,
-    type: 3}
 --- !u!65 &591754872
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1702,8 +1703,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1737226956}
   m_HandleRect: {fileID: 1737226955}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3307,7 +3308,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 110, y: -155}
-  m_SizeDelta: {x: 100, y: 300}
+  m_SizeDelta: {x: 75, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1800622057
 MonoBehaviour:
@@ -3942,6 +3943,7 @@ MonoBehaviour:
   SelectButton: {fileID: 1392389699}
   OptionButton: {fileID: 1803215982}
   OptionSlider: {fileID: 1800622055}
+  Option: {fileID: 7255879098096182145, guid: 5f3e79d1a731abf42967a333bb13ada9, type: 3}
   highlighter: {fileID: 1270523684}
   Scene: {fileID: 591754871}
 --- !u!114 &1981570004

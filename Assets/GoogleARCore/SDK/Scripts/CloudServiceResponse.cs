@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
 // <copyright file="CloudServiceResponse.cs" company="Google">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 namespace GoogleARCore.CrossPlatform
 {
     /// <summary>
-    /// A response from an AR cloud service request.
+    /// A response from the ARCore <see cref="Cloud Anchor"/> service.
     /// </summary>
     public enum CloudServiceResponse
     {
@@ -29,6 +29,7 @@ namespace GoogleARCore.CrossPlatform
         /// The request was completed successfully.
         /// </summary>
         Success,
+
 
         /// <summary>
         /// The request is not supported by the current configuration.
@@ -41,7 +42,7 @@ namespace GoogleARCore.CrossPlatform
         ErrorNotTracking,
 
         /// <summary>
-        /// The Google AR Cloud Service could not be reached via the network connection.
+        /// The ARCore <see cref="Cloud Anchor"/> service could not be reached via the network connection.
         /// </summary>
         /// @deprecated This enum value is deprecated.
         [System.Obsolete(
@@ -63,17 +64,17 @@ namespace GoogleARCore.CrossPlatform
 
         /// <summary>
         /// The device needs to gather additional tracking data from the environment before the
-        /// Google AR Cloud Service can fulfill the request.
+        /// ARCore <see cref="Cloud Anchor"/> service can fulfill the request.
         /// </summary>
         ErrorDatasetInadequate,
 
         /// <summary>
-        /// The request referenced a cloud id that was not found.
+        /// The request referenced a <see cref="Cloud Anchor"/> ID that was not found.
         /// </summary>
         ErrorCloudIdNotFound,
 
         /// <summary>
-        /// The Google AR Cloud Service failed to localize.
+        /// The ARCore <see cref="Cloud Anchor"/> service failed to localize.
         /// </summary>
         /// @deprecated This enum value is deprecated.
         [System.Obsolete(
@@ -82,33 +83,32 @@ namespace GoogleARCore.CrossPlatform
         ErrorLocalizationFailed,
 
         /// <summary>
-        /// The SDK version is too old to be compatible with the Google AR Cloud Service.
+        /// The SDK version is too old to be compatible with the ARCore <see cref="Cloud Anchor"/> service.
         /// </summary>
         ErrorSDKTooOld,
 
         /// <summary>
-        /// The SDK version is too new to be compatible with the Google AR Cloud Service.
+        /// The SDK version is too new to be compatible with the ARCore <see cref="Cloud Anchor"/> service.
         /// </summary>
         ErrorSDKTooNew,
 
         /// <summary>
-        /// The Google AR Cloud Service experienced an internal error when processing the request.
+        /// The ARCore <see cref="Cloud Anchor"/> service experienced an internal error when processing the request.
         /// </summary>
         ErrorInternal,
 
         /// <summary>
-        /// The ARCore Cloud Anchor Service was unreachable. This can happen because
+        /// The ARCore <see cref="Cloud Anchor"/> service was unreachable. This can happen because
         /// of a number of reasons. The device may is in airplane mode or does not
         /// have a working internet connection. The request sent to the server could
         /// have timed out with no response, there could be a bad network
         /// connection, DNS unavailability, firewall issues, or anything that could
-        /// affect the device's ability to connect to the ARCore Cloud Anchor
-        /// service.
+        /// affect the device's ability to connect to the ARCore <see cref="Cloud Anchor"/> service.
         /// </summary>
         ErrorHostingServiceUnavailable,
 
         /// <summary>
-        /// The cloud service request has been cancelled.
+        /// The ARCore <see cref="Cloud Anchor"/> service request has been cancelled.
         /// </summary>
         ErrorRequestCancelled,
     }

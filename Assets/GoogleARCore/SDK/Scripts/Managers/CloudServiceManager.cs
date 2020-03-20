@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
 // <copyright file="CloudServiceManager.cs" company="Google">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ namespace GoogleARCoreInternal.CrossPlatform
                 {
                     s_Instance = new CloudServiceManager();
                     LifecycleManager.Instance.EarlyUpdate += s_Instance._OnEarlyUpdate;
+                    LifecycleManager.Instance.OnResetInstance += _ResetInstance;
                 }
 
                 return s_Instance;
@@ -57,7 +58,7 @@ namespace GoogleARCoreInternal.CrossPlatform
                 return task;
             }
 
-            _CreateCloudAnchor(onComplete, anchor.m_NativeHandle);
+            _CreateCloudAnchor(onComplete, anchor.NativeHandle);
 
             return task;
         }
@@ -226,8 +227,12 @@ namespace GoogleARCoreInternal.CrossPlatform
                     continue;
                 }
 
-                request.NativeSession.AnchorApi.Detach(request.AnchorHandle);
-                request.NativeSession.AnchorApi.Release(request.AnchorHandle);
+                if (request.NativeSession != null && !request.NativeSession.IsDestroyed)
+                {
+                    request.NativeSession.AnchorApi.Detach(request.AnchorHandle);
+                }
+
+                AnchorApi.Release(request.AnchorHandle);
 
                 var result = new CloudAnchorResult()
                 {
@@ -247,6 +252,11 @@ namespace GoogleARCoreInternal.CrossPlatform
                 Debug.LogWarning("Didn't find pending operation for cloudAnchorId: " +
                     cloudAnchorId);
             }
+        }
+
+        private static void _ResetInstance()
+        {
+            s_Instance = null;
         }
 
         private void _OnEarlyUpdate()
@@ -290,8 +300,12 @@ namespace GoogleARCoreInternal.CrossPlatform
             }
             else if (cloudState != ApiCloudAnchorState.TaskInProgress)
             {
-                request.NativeSession.AnchorApi.Detach(request.AnchorHandle);
-                request.NativeSession.AnchorApi.Release(request.AnchorHandle);
+                if (request.NativeSession != null && !request.NativeSession.IsDestroyed)
+                {
+                    request.NativeSession.AnchorApi.Detach(request.AnchorHandle);
+                }
+
+                AnchorApi.Release(request.AnchorHandle);
 
                 var result = new CloudAnchorResult()
                 {

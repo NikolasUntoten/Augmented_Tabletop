@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="ComputerVisionController.cs" company="Google">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -231,7 +231,7 @@ namespace GoogleARCore.Examples.ComputerVision
         }
 
         /// <summary>
-        /// Hanldes the auto focus checkbox value changed.
+        /// Handles the auto focus checkbox value changed.
         /// </summary>
         /// <param name="autoFocusEnabled">If set to <c>true</c> auto focus will be enabled.</param>
         public void OnAutoFocusCheckboxValueChanged(bool autoFocusEnabled)
@@ -240,7 +240,7 @@ namespace GoogleARCore.Examples.ComputerVision
             if (config != null)
             {
                 config.CameraFocusMode =
-                    autoFocusEnabled ? CameraFocusMode.Auto : CameraFocusMode.Fixed;
+                    autoFocusEnabled ? CameraFocusMode.AutoFocus : CameraFocusMode.FixedFocus;
             }
         }
 

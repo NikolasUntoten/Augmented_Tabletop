@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="ARCoreCameraConfigFilter.cs" company="Google">
 //
-// Copyright 2019 Google Inc. All Rights Reserved.
+// Copyright 2019 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,20 +24,28 @@ namespace GoogleARCore
     using UnityEngine;
 
     /// <summary>
-    /// The ARCoreCameraConfigFilter class defines the set of features and device capabilities
-    /// an app would like to have available. This is used to derive a list of camera configurations
-    /// available on the device at runtime to select from.
+    /// The <see cref="ARCoreCameraConfigFilter"/> class derives a list of camera configurations
+    /// available on the device at runtime.
+    /// </summary>
+    /// <remarks>
+    /// This is used to derive a list of camera configurations available on the device at runtime
+    /// to select from.
     ///
     /// NOTE: It is possible to select options in such a way that some devices will
-    /// have no available configurations at runtime. In this case your app will not run.
+    /// have no available configurations at runtime. In this case, your app will not run.
+    ///
+    /// Beginning with ARCore SDK 1.15.0, some devices support additional camera configs with lower
+    /// GPU texture resolutions than the device's default GPU texture resolution. See the
+    /// <a href="https://developers.google.com/ar/discover/supported-devices">ARCore supported
+    /// devices</a> page for details.
     ///
     /// An app may adjust its capabilities at runtime by selecting a wider range of config filters
-    /// and using <see cref="ARCoreSession.RegisterChooseCameraConfigurationCallback(
-    /// ARCoreSession.OnChooseCameraConfigurationDelegate)"/> to specify a selection function.
+    /// and using ARCoreSession.RegisterChooseCameraConfigurationCallback(
+    /// ARCoreSession.OnChooseCameraConfigurationDelegate) to specify a selection function.
     /// In that function the app may then adjust its runtime settings and select an appropriate
     /// camera configuration. If no callback is registered, ARCore will use the first
-    /// CameraConfig in the list of available configurations.
-    /// </summary>
+    /// <see cref="CameraConfig"/> in the list of available configurations.
+    /// </remarks>
     [CreateAssetMenu(
         fileName = "ARCoreCameraConfigFilter",
         menuName = "Google ARCore/CameraConfigFilter",
@@ -45,17 +53,17 @@ namespace GoogleARCore
     public class ARCoreCameraConfigFilter : ScriptableObject
     {
         /// <summary>
-        /// Camera Frame Rates Filter.
+        /// This is the camera frame rates filter for the currently selected camera.
         /// </summary>
         public TargetCameraFramerateFilter TargetCameraFramerate;
 
         /// <summary>
-        /// Depth Sensor Usage Filter.
+        /// This allows an app to use or disable a hardware depth sensor if present on the device.
         /// </summary>
         public DepthSensorUsageFilter DepthSensorUsage;
 
         /// <summary>
-        /// Unity OnValidate().
+        /// Unity OnValidate.
         /// </summary>
         public void OnValidate()
         {
@@ -85,7 +93,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Target Camera Frame Rates.
+        /// This is the camera frame rates filter for the currently selected camera.
         /// </summary>
         [Serializable]
         public class TargetCameraFramerateFilter
@@ -104,8 +112,8 @@ namespace GoogleARCore
             ///
             /// Increases power consumption and may increase app memory usage.
             ///
-            /// See the ARCore supported devices
-            /// (https://developers.google.com/ar/discover/supported-devices) page for a list of
+            /// See the <a href="https://developers.google.com/ar/discover/supported-devices">
+            /// ARCore supported devices</a> page for a list of
             /// devices that currently support 60fps.
             /// </summary>
             [Tooltip("Target 60fps camera capture frame rate on supported devices.")]
@@ -113,7 +121,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Depth Sensor Usage.
+        /// This allows an app to use or disable a hardware depth sensor if present on the device.
         /// </summary>
         [Serializable]
         public class DepthSensorUsageFilter
@@ -122,8 +130,8 @@ namespace GoogleARCore
             /// Filters for camera configs that require a depth sensor to be present on the device,
             /// and that will be used by ARCore.
             ///
-            /// See the ARCore supported devices
-            /// (https://developers.google.com/ar/discover/supported-devices) page for a list of
+            /// See the <a href="https://developers.google.com/ar/discover/supported-devices">
+            /// ARCore supported devices</a> page for a list of
             /// devices that currently have supported depth sensors.
             /// </summary>
             [Tooltip("ARCore requires a depth sensor to be present and will use it. " +

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
 // <copyright file="Frame.cs" company="Google">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Performs a raycast against physical objects being tracked by ARCore.
+        /// Performs a raycast against objects being tracked by ARCore.
         /// Output the closest hit from the camera.
         /// Note that the Unity's screen coordinate (0, 0)
         /// starts from bottom left.
@@ -118,7 +118,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Performs a raycast against physical objects being tracked by ARCore.
+        /// Performs a raycast against objects being tracked by ARCore.
         /// Output the closest hit from the origin.
         /// </summary>
         /// <param name="origin">The starting point of the ray in world coordinates.</param>
@@ -157,7 +157,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Performs a raycast against physical objects being tracked by ARCore.
+        /// Performs a raycast against objects being tracked by ARCore.
         /// Output all hits from the camera.
         /// Note that the Unity's screen coordinate (0, 0)
         /// starts from bottom left.
@@ -186,7 +186,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Performs a raycast against physical objects being tracked by ARCore.
+        /// Performs a raycast against objects being tracked by ARCore.
         /// Output all hits from the origin.
         /// </summary>
         /// <param name="origin">The starting point of the ray in world coordinates.</param>
@@ -216,7 +216,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Container for state related to the ARCore camera image metadata for the Frame.
+        /// Container for state related to the ARCore camera image metadata for the frame.
         /// </summary>
         public static class CameraMetadata
         {
@@ -280,7 +280,7 @@ namespace GoogleARCore
         }
 
         /// <summary>
-        /// Container for state related to the ARCore point cloud for the Frame.
+        /// Container for state related to the ARCore point cloud for the frame.
         /// </summary>
         public static class PointCloud
         {
@@ -640,5 +640,6 @@ namespace GoogleARCore
                 return result;
             }
         }
+
     }
 }

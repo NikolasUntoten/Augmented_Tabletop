@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
 // <copyright file="ExampleBuildHelper.cs" company="Google">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ namespace GoogleARCoreInternal
     {
         private List<ExampleScene> m_ExampleScenes = new List<ExampleScene>();
 
-        internal List<ExampleScene> m_AllExampleScenes
+        internal List<ExampleScene> AllExampleScenes
         {
             get
             {
