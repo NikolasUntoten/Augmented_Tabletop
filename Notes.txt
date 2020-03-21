@@ -1,0 +1,20 @@
+CREATION
+-Click the button and you will be taken to the creation session
+-Edit any table settings BEFORE clicking the table
+-Scan the table, and click the point where you want your virtual table to be centered at
+-Try to get as much context as you can. View the table from different angles.
+-The scanned table will be uploaded and shared (this may take a minute!)
+-Mark down the table number (in the pause menu) and share it with your friends!
+-Please note that tables are only valid for 24 hours. After this point, they are deleted, so save your scenes locally!!
+
+JOINING
+-Simply enter the table number the host gives you, and you're off!
+
+
+SAVING / LOADING
+- You can save the scene exactly how it is to your device, and load it later.
+
+
+TIDBITS
+- The host isn't responsible for the table - they can leave and the table will remain
+- If the virtual table disappears on you, try leaving and rejoining. AR is finnicky!
