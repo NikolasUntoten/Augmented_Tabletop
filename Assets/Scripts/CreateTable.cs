@@ -7,11 +7,16 @@ using GoogleARCore.Examples.HelloAR;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CreateTable : MonoBehaviour
 {
 
 	public GameObject tablePrefab;
+
+	public GameObject LoadText;
+
+	public GameObject LoadCircle;
 
 	// Used for the callback function in ARCoreController
 	// Creates and uploads a table on touch, then loads the join scene.
@@ -35,6 +40,7 @@ public class CreateTable : MonoBehaviour
 			// Make game object a child of the anchor.
 			gameObject.transform.parent = anchor.transform;
 
+
 			_DoUploadAndMoveOn(anchor);
 		} catch (System.Exception e)
 		{
@@ -42,20 +48,29 @@ public class CreateTable : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		LoadCircle.transform.Rotate(new Vector3(0, 0, 1f));
+	}
+
 	// Creates the anchor, then kicks to _AfterAnchorMade
 	private void _DoUploadAndMoveOn(Anchor anchor)
 	{
-		TableUtility.ShowAndroidToastMessage(
-			"Creating cloud anchor: " + anchor.ToString());
+		//TableUtility.ShowAndroidToastMessage(
+		//	"Creating cloud anchor: " + anchor.ToString());
+
+		LoadText.GetComponent<UnityEngine.UI.Text>().text = "Creating Cloud Anchor...";
+		LoadCircle.SetActive(true);
 		FirebaseHandler.CreateCloudAnchor(anchor, _AfterAnchorMade);
 	}
 
 	// Uploads Anchor Data, then loads join scene.
 	private void _AfterAnchorMade(CloudAnchorResult result)
 	{
-		TableUtility.ShowAndroidToastMessage(
-				string.Format("Cloud Anchor {0} was created and saved.",
-				result.Anchor.CloudId));
+		//TableUtility.ShowAndroidToastMessage(
+		//		string.Format("Cloud Anchor {0} was created and saved.",
+		//		result.Anchor.CloudId));
+		LoadText.GetComponent<UnityEngine.UI.Text>().text = "Anchor Created. Hosting Table...";
 		Debug.Log(string.Format("Cloud Anchor {0} was created and saved.",
 			result.Anchor.CloudId));
 

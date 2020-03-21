@@ -18,3 +18,9 @@ SAVING / LOADING
 TIDBITS
 - The host isn't responsible for the table - they can leave and the table will remain
 - If the virtual table disappears on you, try leaving and rejoining. AR is finnicky!
+
+
+For testing on OSX:
+pull git
+download google-services.json and googleService-Info.plist
+Edit->project settings-> ARCore -> Add IOS and Android cloud keys, tick all boxes
